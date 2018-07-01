@@ -37,13 +37,24 @@ dg.find_valid_dir = (g_l, rm_grid) => {
   return ret_dir;
 }
 
+dg.copy_pt = (pt) => ({x: pt.x, y: pt.y});
+
+dg.connect_rms = (g_l1, g_l2) => {
+
+}
+
 dg.find_open = (start_l, rm_grid) => {
   let new_l = {x: start_l.x, y: start_l.y};
+  let last_l = dg.copy_pt(new_l);
 
   do {
     let new_dir = dg.find_valid_dir(new_l, rm_grid);
+
+    last_l = dg.copy_pt(new_l);
     new_l = dg.add_pts(new_l, new_dir);
   } while (rm_grid[new_l.y][new_l.x] === 1)
+
+  //dg.connect_rms(last_l, new_l);
 
   return new_l;
 }
@@ -66,13 +77,9 @@ dg.carve_rm = (g_l, map, rm_sz, gap) => {
   }
 }
 
-dg.connect_rms = (g_l1, g_l2) => {
-
-}
-
 dg.gen = (num_rms, rm_sz, gap) => {
   // prepate grid and map variables
-  let max_grid_sz = Math.ceil(Math.sqrt(num_rms)) * 2; // change this to change map size
+  let max_grid_sz = Math.ceil(Math.sqrt(num_rms) * 2); // change this to change map size
   console.log(max_grid_sz)
   let rm_grid = dg.populate2d(max_grid_sz, 0);
 
