@@ -17,9 +17,7 @@ dg.populate2d = (sz, c) => {
   return mx;
 }
 
-dg.grid2map = (g_l, rm_sz, gap) => (
-  {x: g_l.x * (rm_sz + gap), y: g_l.y * (rm_sz + gap)}
-);
+dg.grid2map = (g_l, rm_sz, gap) => ({x: g_l.x * (rm_sz + gap), y: g_l.y * (rm_sz + gap)});
 
 dg.add_pts = (pt1, pt2) => ({x: pt1.x + pt2.x, y: pt1.y + pt2.y});
 
@@ -63,6 +61,23 @@ dg.connect_hzt = (m_l1, m_l2, map, rm_sz, gap) => {
   }
 }
 
+dg.merge_hzt = (m_l1, m_l2, map, rm_sz, gap) => {
+  let lft_most = ((m_l1.x < m_l2.x) ? m_l1.x : m_l2.x) + (rm_sz - 1);
+  let rgt_most = lft_most + gap + 1;
+
+  // fill in-between area with path
+  for (let row = m_l1.y; row < m_l1.y + rm_sz; row++) {
+    for (let col = lft_most; col <= rgt_most; col ++)
+      map[row][col] = '.';
+  }
+
+  // draw main line(s)
+  for (let i = lft_most; i <= rgt_most; i++) {
+    map[m_l1.y][i] = '#';
+    map[m_l1.y + rm_sz - 1][i] = '#';
+  }
+}
+
 dg.connect_vrt = (m_l1, m_l2, map, rm_sz, gap) => {
   let top_most = ((m_l1.y < m_l2.y) ? m_l1.y : m_l2.y) + (rm_sz - 1);
   let btm_most = top_most + gap + 1;
@@ -83,14 +98,38 @@ dg.connect_vrt = (m_l1, m_l2, map, rm_sz, gap) => {
   }
 }
 
+dg.merge_vrt = (m_l1, m_l2, map, rm_sz, gap) => {
+  let top_most = ((m_l1.y < m_l2.y) ? m_l1.y : m_l2.y) + (rm_sz - 1);
+  let btm_most = top_most + gap + 1;
+
+  // fill in-between area with brick
+  for (let row = top_most; row <= btm_most; row++) {
+    for (let col = m_l1.x; col < m_l1.x + rm_sz; col ++)
+      map[row][col] = '.';
+  }
+
+  // draw main line(s)
+  for (let i = top_most; i <= btm_most; i++) {
+    map[i][m_l1.x] = '#';
+    map[i][m_l1.x + rm_sz - 1] = '#';
+  }
+}
+
 dg.carve_tnl = (g_l1, g_l2, map, rm_sz, gap) => {
   let m_l1 = dg.grid2map(g_l1, rm_sz, gap);
   let m_l2 = dg.grid2map(g_l2, rm_sz, gap);
 
-  if (m_l1.y === m_l2.y)
-    dg.connect_hzt(m_l1, m_l2, map, rm_sz, gap);
-  else
-    dg.connect_vrt(m_l1, m_l2, map, rm_sz, gap);
+  if (m_l1.y === m_l2.y) {
+    if(Math.random() > 0.25)
+      dg.connect_hzt(m_l1, m_l2, map, rm_sz, gap);
+    else
+      dg.merge_hzt(m_l1, m_l2, map, rm_sz, gap);
+  } else {
+    if(Math.random() > 0.25)
+      dg.connect_vrt(m_l1, m_l2, map, rm_sz, gap);
+    else
+      dg.merge_vrt(m_l1, m_l2, map, rm_sz, gap);
+  }
 }
 
 dg.find_open = (start_l, rm_grid, map, rm_sz, gap) => {

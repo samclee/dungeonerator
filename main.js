@@ -7,7 +7,9 @@ function init() {
   let num_rms = 40;
   let rm_sz = 8;
   let gap = 0;
-  let chr_clr_map = {'~': 'lime', '#': '#ff86f4', '.': '#ffffbe', '!': 'red', '@': 'blue'};
+  let thm1 = {'~': 'lime', '#': '#ff86f4', '.': '#ffffbe'};
+  let thm2 = {'~': 'black', '#': 'white', '.': 'black'};
+  let chr_clr_map = thm2;
   
   // adjust sizes to fit map on screen
   let max_grid_sz = Math.ceil(Math.sqrt(num_rms) * 2);
@@ -25,3 +27,4 @@ function init() {
   }
 
 } // init()
+

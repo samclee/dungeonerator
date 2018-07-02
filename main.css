@@ -1,0 +1,21 @@
+h1 {
+  font-family: 'Shrikhand', cursive;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body {
+  background-color: black;
+}
+
+canvas {
+  border: 10px solid white;
+  margin: auto;
+  display: block;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.5em;
+}
