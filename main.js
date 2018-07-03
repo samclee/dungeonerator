@@ -39,7 +39,17 @@ function new_map() {
   }
 }
 
+function stringify_map() {
+  let map_str = '';
+  for (let r of map) {
+    map_str += r.join('');
+    map_str += '\n';
+  }
+
+  return map_str;
+}
+
 function dl_map() {
-  let map_str = JSON.stringify(map);
-  download(map_str, "my_dungeon.json", "text/json");
+  let map_str = stringify_map(); //JSON.stringify(map);
+  download(map_str, "my_dungeon.txt", "text/plain");
 }
