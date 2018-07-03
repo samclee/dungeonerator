@@ -1,4 +1,4 @@
-var c, ctx, num_rms, rm_sz, gap, chr_clr_map, b_sz;
+var c, ctx, num_rms, rm_sz, gap, chr_clr_map, b_sz, map;
 
 function init() {
   // prepate canvas
@@ -17,7 +17,7 @@ function init() {
   b_sz = c.width / max_map_sz;
 
   // display map
-  let map = dg.gen(num_rms, rm_sz, gap);
+  map = dg.gen(num_rms, rm_sz, gap);
 
   for (let row = 0; row < map.length; row++) {
     for (let col = 0; col < map.length; col++) {
@@ -37,4 +37,9 @@ function new_map() {
       ctx.fillRect(col * b_sz, row * b_sz, b_sz+1, b_sz+1);
     }
   }
+}
+
+function dl_map() {
+  let map_str = JSON.stringify(map);
+  download(map_str, "my_dungeon.json", "text/json");
 }
