@@ -6,7 +6,7 @@ function init() {
   ctx = c.getContext('2d');
 
   // prepare map variables
-  num_rms = 40;
+  num_rms = 20;
   rm_sz = 8;
   gap = 0;
   chr_clr_map = {'~': 'black', '#': 'white', '.': 'black'};
@@ -50,6 +50,6 @@ function stringify_map() {
 }
 
 function dl_map() {
-  let map_str = stringify_map(); //JSON.stringify(map);
+  let map_str = stringify_map();
   download(map_str, "my_dungeon.txt", "text/plain");
 }
