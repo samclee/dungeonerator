@@ -61,23 +61,6 @@ dg._connect_hzt = (m_l1, m_l2, map, rm_sz, gap) => {
   }
 }
 
-dg._merge_hzt = (m_l1, m_l2, map, rm_sz, gap) => {
-  let lft_most = ((m_l1.x < m_l2.x) ? m_l1.x : m_l2.x) + (rm_sz - 1);
-  let rgt_most = lft_most + gap + 1;
-
-  // fill in-between area with path
-  for (let row = m_l1.y; row < m_l1.y + rm_sz; row++) {
-    for (let col = lft_most; col <= rgt_most; col ++)
-      map[row][col] = '.';
-  }
-
-  // draw main line(s)
-  for (let i = lft_most; i <= rgt_most; i++) {
-    map[m_l1.y][i] = '#';
-    map[m_l1.y + rm_sz - 1][i] = '#';
-  }
-}
-
 dg._connect_vrt = (m_l1, m_l2, map, rm_sz, gap) => {
   let top_most = ((m_l1.y < m_l2.y) ? m_l1.y : m_l2.y) + (rm_sz - 1);
   let btm_most = top_most + gap + 1;
@@ -95,6 +78,23 @@ dg._connect_vrt = (m_l1, m_l2, map, rm_sz, gap) => {
   if (rm_sz % 2 === 0) {
     for (let i = top_most; i <= btm_most; i++)
       map[i][m_l1.x + Math.floor(rm_sz / 2) - 1] = '.';
+  }
+}
+
+dg._merge_hzt = (m_l1, m_l2, map, rm_sz, gap) => {
+  let lft_most = ((m_l1.x < m_l2.x) ? m_l1.x : m_l2.x) + (rm_sz - 1);
+  let rgt_most = lft_most + gap + 1;
+
+  // fill in-between area with path
+  for (let row = m_l1.y; row < m_l1.y + rm_sz; row++) {
+    for (let col = lft_most; col <= rgt_most; col ++)
+      map[row][col] = '.';
+  }
+
+  // draw main line(s)
+  for (let i = lft_most; i <= rgt_most; i++) {
+    map[m_l1.y][i] = '#';
+    map[m_l1.y + rm_sz - 1][i] = '#';
   }
 }
 
@@ -176,7 +176,7 @@ dg.gen = (num_rms, rm_sz, gap) => {
   // place other rooms
   let rms_left = num_rms;
   while (rms_left) {
-    // find location of new room
+    // find location of new room and room it branched from
     let tnl_info = dg._find_open(ctr_l, rm_grid, map, rm_sz, gap);
     let new_l = tnl_info[0];
     let last_l = tnl_info[1];
