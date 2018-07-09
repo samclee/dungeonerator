@@ -18,6 +18,11 @@
 
   <canvas id='display' width='400' height='400'>
     Your browser does not support the canvas element</canvas>
+
+  <input type="number" onchange="set_num_rms(this)" 
+          value="20" name="numRooms" min="1" max="1000">
+  <input type="number" onchange="set_rm_sz(this)"
+          value="8" name="numRooms" min="3" max="10">
   
   <button class='myBtn' onclick="new_map()">Generate</button>
   <button class='myBtn' onclick='dl_map()'>Đownload</button>

@@ -151,16 +151,20 @@ dg._carve_rm = (g_l, map, rm_sz, gap) => {
 
   for (let row = rm_base.y; row < rm_base.y + rm_sz; row++) {
     for (let col = rm_base.x; col < rm_base.x + rm_sz; col++) {
+      //console.log('tile to be placed at row: ' + row + ', col: ' + col);
       if(row === rm_base.y || row === rm_base.y + rm_sz - 1
-          || col === rm_base.x || col === rm_base.x + rm_sz - 1)
+          || col === rm_base.x || col === rm_base.x + rm_sz - 1) {
         map[row][col] = '#';
-      else
+      } else {
         map[row][col] = '.';
+      }
     }
   }
 }
 
 dg.gen = (num_rms, rm_sz, gap) => {
+  console.log('Generating <' + num_rms + '> rooms of size <' + rm_sz +
+                '> tiles with <' + gap + '> tiles in between.');
   // prepate grid and map variables
   let max_grid_sz = Math.ceil(Math.sqrt(num_rms) * 2); // change this to change map size
   let rm_grid = dg._populate2d(max_grid_sz, 0);
@@ -168,14 +172,18 @@ dg.gen = (num_rms, rm_sz, gap) => {
   let max_map_sz = rm_sz * max_grid_sz + gap * (max_grid_sz - 1);
   let map = dg._populate2d(max_map_sz, '~');
 
+  console.log('Grid dimensions: ' + max_grid_sz + 'x' + max_grid_sz);
+  console.log('Map dimensions: ' + max_map_sz + 'x' + max_map_sz);
+
   // place center room
   let ctr_l = {x: Math.floor(max_grid_sz / 2), y: Math.floor(max_grid_sz / 2)}; 
+  console.log('ctr_l:', ctr_l);
   dg._carve_rm(ctr_l, map, rm_sz, gap);
   rm_grid[ctr_l.y][ctr_l.x] = 1;
 
   // place other rooms
   let rms_left = num_rms;
-  while (rms_left) {
+  while (rms_left > 1) {
     // find location of new room and room it branched from
     let tnl_info = dg._find_open(ctr_l, rm_grid, map, rm_sz, gap);
     let new_l = tnl_info[0];
