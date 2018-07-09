@@ -26,7 +26,7 @@ function new_map() {
   for (let row = 0; row < map.length; row++) {
     for (let col = 0; col < map.length; col++) {
       ctx.fillStyle = chr_clr_map[map[row][col]];
-      ctx.fillRect(col * b_sz, row * b_sz, b_sz-1, b_sz-1);
+      ctx.fillRect(col * b_sz, row * b_sz, b_sz+1, b_sz+1);
     }
   }
 }
@@ -46,15 +46,16 @@ function dl_map() {
   download(map_str, "my_dungeon.txt", "text/plain");
 }
 
+let clamp = (min, val, max) => Math.min(Math.max(min, val), max);
+
 function set_num_rms(inp) {
-  num_rms = parseInt(inp.value);
-  //console.log('Setting num_rms to', inp.value);
+  num_rms = parseInt(clamp(1, inp.value, 500));
 }
 
 function set_rm_sz(inp) {
-  rm_sz = parseInt(inp.value);
+  rm_sz = parseInt(clamp(3,inp.value,10));
 }
 
 function set_gap(inp) {
-  gap = inp.value;
+  gap = parseInt(clamp(0, inp.value, 5));
 }

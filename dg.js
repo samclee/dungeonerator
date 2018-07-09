@@ -172,12 +172,8 @@ dg.gen = (num_rms, rm_sz, gap) => {
   let max_map_sz = rm_sz * max_grid_sz + gap * (max_grid_sz - 1);
   let map = dg._populate2d(max_map_sz, '~');
 
-  console.log('Grid dimensions: ' + max_grid_sz + 'x' + max_grid_sz);
-  console.log('Map dimensions: ' + max_map_sz + 'x' + max_map_sz);
-
   // place center room
   let ctr_l = {x: Math.floor(max_grid_sz / 2), y: Math.floor(max_grid_sz / 2)}; 
-  console.log('ctr_l:', ctr_l);
   dg._carve_rm(ctr_l, map, rm_sz, gap);
   rm_grid[ctr_l.y][ctr_l.x] = 1;
 
