@@ -1,4 +1,4 @@
-var c, ctx, num_rms, rm_sz, gap, chr_clr_map, max_grid_sz, max_map_sz, b_sz, map;
+var c, ctx, num_rms, rm_sz, options, chr_clr_map, max_grid_sz, max_map_sz, b_sz, map;
 
 function init() {
   // prepate canvas
@@ -8,7 +8,7 @@ function init() {
   // prepare map variables
   num_rms = 20;
   rm_sz = 8;
-  gap = 0;
+  options = {gap: 0, merge_prob: 0.25, trim: false};
   chr_clr_map = {'~': 'black', '#': 'white', '.': 'black'};
   
   new_map();
@@ -17,11 +17,11 @@ function init() {
 function new_map() {
   // adjust sizes to fit map on screen
   max_grid_sz = Math.ceil(Math.sqrt(num_rms) * 2);
-  max_map_sz = rm_sz * max_grid_sz + gap * (max_grid_sz - 1);
+  max_map_sz = rm_sz * max_grid_sz + options.gap * (max_grid_sz - 1);
   b_sz = c.width / max_map_sz;
 
   // display map
-  map = dg.gen(num_rms, rm_sz, gap);
+  map = dg.gen(num_rms, rm_sz, options);
 
   for (let row = 0; row < map.length; row++) {
     for (let col = 0; col < map.length; col++) {
@@ -57,5 +57,9 @@ function set_rm_sz(inp) {
 }
 
 function set_gap(inp) {
-  gap = parseInt(clamp(0, inp.value, 5));
+  options.gap = parseInt(clamp(0, inp.value, 5));
+}
+
+function set_merge_prob(inp) {
+  options.merge_prob = parseInt(clamp(0, inp.value, 100)) / 100;
 }

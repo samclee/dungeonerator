@@ -21,12 +21,17 @@
   <canvas id='display' width='400' height='400'>
     Your browser does not support the canvas element</canvas>
 
+  <h5>Set number of rooms</h5>
   <input type="number" onchange="set_num_rms(this)" 
           value="20" name="numRooms" min="1" max="500">
+  <h5>Set room size</h5>
   <input type="number" onchange="set_rm_sz(this)"
           value="8" name="roomSize" min="3" max="10">
+  <h5>Set space betweem rooms</h5>
   <input type="number" onchange="set_gap(this)"
           value="0" name="gapSize" min="0" max="5">
+
+  <h5>Set probability of halls forming</h5>
   
   <button class="btn" onclick="new_map()"><i class="fa fa-sync-alt"></i> Generate</button>
   <button class="btn" onclick='dl_map()'><i class="fa fa-arrow-circle-down "></i> Đownload</button>

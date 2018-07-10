@@ -115,17 +115,17 @@ dg._merge_vrt = (m_l1, m_l2, map, rm_sz, gap) => {
   }
 }
 
-dg._carve_tnl = (g_l1, g_l2, map, rm_sz, gap) => {
+dg._carve_tnl = (g_l1, g_l2, map, rm_sz, gap, merge_prob) => {
   let m_l1 = dg._grid2map(g_l1, rm_sz, gap);
   let m_l2 = dg._grid2map(g_l2, rm_sz, gap);
 
   if (m_l1.y === m_l2.y) {
-    if(Math.random() > 0.25)
+    if(Math.random() > merge_prob)
       dg._connect_hzt(m_l1, m_l2, map, rm_sz, gap);
     else
       dg._merge_hzt(m_l1, m_l2, map, rm_sz, gap);
   } else {
-    if(Math.random() > 0.25)
+    if(Math.random() > merge_prob)
       dg._connect_vrt(m_l1, m_l2, map, rm_sz, gap);
     else
       dg._merge_vrt(m_l1, m_l2, map, rm_sz, gap);
@@ -138,7 +138,6 @@ dg._find_open = (start_l, rm_grid, map, rm_sz, gap) => {
 
   do {
     let new_dir = dg._find_valid_dir(new_l, rm_grid);
-
     last_l = dg._copy_pt(new_l);
     new_l = dg._add_pts(new_l, new_dir);
   } while (rm_grid[new_l.y][new_l.x] === 1)
@@ -162,34 +161,41 @@ dg._carve_rm = (g_l, map, rm_sz, gap) => {
   }
 }
 
-dg.gen = (num_rms, rm_sz, gap) => {
+dg.gen = (num_rms, rm_sz, opt) => {
+  opt = opt || {gap: 0, merge_prob: 0.25, trim: false};
+  opt.gap = (opt.gap === undefined) ? 0 : opt.gap; // inline condit to compensate for 0 falseness
+  opt.merge_prob = opt.merge_prob || 0.25;
+  opt.trim = opt.trim || false;
+
   console.log('Generating <' + num_rms + '> rooms of size <' + rm_sz +
-                '> tiles with <' + gap + '> tiles in between.');
-  // prepate grid and map variables
+                '> tiles with <' + opt.gap + '> tiles in between.');
+  
+
+  // prepare grid and map variables
   let max_grid_sz = Math.ceil(Math.sqrt(num_rms) * 2); // change this to change map size
   let rm_grid = dg._populate2d(max_grid_sz, 0);
 
-  let max_map_sz = rm_sz * max_grid_sz + gap * (max_grid_sz - 1);
+  let max_map_sz = rm_sz * max_grid_sz + opt.gap * (max_grid_sz - 1);
   let map = dg._populate2d(max_map_sz, '~');
 
   // place center room
   let ctr_l = {x: Math.floor(max_grid_sz / 2), y: Math.floor(max_grid_sz / 2)}; 
-  dg._carve_rm(ctr_l, map, rm_sz, gap);
+  dg._carve_rm(ctr_l, map, rm_sz, opt.gap);
   rm_grid[ctr_l.y][ctr_l.x] = 1;
 
   // place other rooms
   let rms_left = num_rms;
   while (rms_left > 1) {
-    // find location of new room and room it branched from
-    let tnl_info = dg._find_open(ctr_l, rm_grid, map, rm_sz, gap);
+    // find location for new room and room it branched from
+    let tnl_info = dg._find_open(ctr_l, rm_grid, map, rm_sz, opt.gap);
     let new_l = tnl_info[0];
     let last_l = tnl_info[1];
 
     // carve new room into dungeon
-    dg._carve_rm(new_l, map, rm_sz, gap);
+    dg._carve_rm(new_l, map, rm_sz, opt.gap);
 
-    // carve runnel between last room and current room
-    dg._carve_tnl(new_l, last_l, map, rm_sz, gap);
+    // carve tunnel between last room and current room
+    dg._carve_tnl(new_l, last_l, map, rm_sz, opt.gap, opt.merge_prob);
 
     // record room on room grid
     rm_grid[new_l.y][new_l.x] = 1;
