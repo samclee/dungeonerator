@@ -61,7 +61,5 @@ function set_gap(inp) {
 }
 
 function set_merge_prob(inp) {
-  let x = parseInt(clamp(0, inp.value, 100)) / 100;
-  options.merge_prob = x;
-  console.log(x);
+  options.merge_prob = parseInt(clamp(0, inp.value, 100)) / 100;
 }
