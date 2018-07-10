@@ -23,15 +23,16 @@
 
   <h5>Set number of rooms</h5>
   <input type="number" onchange="set_num_rms(this)" 
-          value="20" name="numRooms" min="1" max="500">
+          value="20" min="1" max="500">
   <h5>Set room size</h5>
   <input type="number" onchange="set_rm_sz(this)"
-          value="8" name="roomSize" min="3" max="10">
+          value="8" min="3" max="10">
   <h5>Set space betweem rooms</h5>
   <input type="number" onchange="set_gap(this)"
-          value="0" name="gapSize" min="0" max="5">
-
-  <h5>Set probability of halls forming</h5>
+          value="0" min="0" max="5">
+  <h5>Percent change of halls forming</h5>
+  <input type="number" onchange="set_merge_prob(this)"
+          value="25" min="0", max="100" step="5">
   
   <button class="btn" onclick="new_map()"><i class="fa fa-sync-alt"></i> Generate</button>
   <button class="btn" onclick='dl_map()'><i class="fa fa-arrow-circle-down "></i> Đownload</button>

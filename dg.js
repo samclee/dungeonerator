@@ -118,14 +118,15 @@ dg._merge_vrt = (m_l1, m_l2, map, rm_sz, gap) => {
 dg._carve_tnl = (g_l1, g_l2, map, rm_sz, gap, merge_prob) => {
   let m_l1 = dg._grid2map(g_l1, rm_sz, gap);
   let m_l2 = dg._grid2map(g_l2, rm_sz, gap);
+  let create_tnl = Math.random() + 0.000000001 > merge_prob;
 
   if (m_l1.y === m_l2.y) {
-    if(Math.random() > merge_prob)
+    if(create_tnl)
       dg._connect_hzt(m_l1, m_l2, map, rm_sz, gap);
     else
       dg._merge_hzt(m_l1, m_l2, map, rm_sz, gap);
   } else {
-    if(Math.random() > merge_prob)
+    if(create_tnl)
       dg._connect_vrt(m_l1, m_l2, map, rm_sz, gap);
     else
       dg._merge_vrt(m_l1, m_l2, map, rm_sz, gap);
@@ -164,11 +165,12 @@ dg._carve_rm = (g_l, map, rm_sz, gap) => {
 dg.gen = (num_rms, rm_sz, opt) => {
   opt = opt || {gap: 0, merge_prob: 0.25, trim: false};
   opt.gap = (opt.gap === undefined) ? 0 : opt.gap; // inline condit to compensate for 0 falseness
-  opt.merge_prob = opt.merge_prob || 0.25;
+  opt.merge_prob = (opt.merge_prob === undefined) ? 0.25 : opt.merge_prob;
   opt.trim = opt.trim || false;
 
   console.log('Generating <' + num_rms + '> rooms of size <' + rm_sz +
                 '> tiles with <' + opt.gap + '> tiles in between.');
+  console.log('Probability of halls occuring is <' + (opt.merge_prob * 100) + '> percent.');
   
 
   // prepare grid and map variables
