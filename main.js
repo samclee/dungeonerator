@@ -6,10 +6,10 @@ function init() {
   ctx = c.getContext('2d');
 
   // prepare map variables
-  num_rms = 20;
-  rm_sz = 8;
+  num_rms = 4;
+  rm_sz = 3;
   options = {gap: 0, merge_prob: 0.25, trim: false};
-  chr_clr_map = {'~': 'black', '#': 'white', '.': 'black'};
+  chr_clr_map = {'~': 'black', '#': 'white', '.': 'black', '$': 'lime', '*': 'yellow'};
   
   new_map();
 } // init()
@@ -17,7 +17,7 @@ function init() {
 function new_map() {
   // display map
   map = dg.gen(num_rms, rm_sz, options);
-  b_sz = c.width / map.length;
+  b_sz = (map.length > map[0].length) ? c.width / map.length : c.width / map[0].length;
   console.log('Recieved map of size', map.length);
 
   for (let row = 0; row < map.length; row++) {

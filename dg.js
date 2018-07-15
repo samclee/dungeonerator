@@ -220,17 +220,36 @@ dg.gen = (num_rms, rm_sz, opt) => {
     rms_left--;
   }
 
-  console.log('Map spans from cols <' + bnd_lft + '-' + bnd_rgt + '> and rows <' + 
-                  bnd_top + '-' + bnd_btm + '>.');
+  // map_bnd_* is the bnds of the map *inclusive*
+  let map_bnd_lft = bnd_lft * (rm_sz + opt.gap);
+  let map_bnd_rgt = (bnd_rgt + 1) * (rm_sz + opt.gap) - 1; // the +/-1 puts the bound on the other side of the col
+  let map_bnd_btm = (bnd_btm + 1) * (rm_sz + opt.gap) - 1; // the +/-1 puts the bound on the other side of the row
+  let map_bnd_top = bnd_top * (rm_sz + opt.gap);
 
-  if (false) {
+  console.log('Grid spans from cols <' + bnd_lft + '-' + bnd_rgt + '> and rows <' + 
+                  bnd_top + '-' + bnd_btm + '>.');
+  console.log('Map spans from cols <' + map_bnd_lft + '-' + map_bnd_rgt + '> and rows <' +
+                  map_bnd_top + '-' + map_bnd_btm + '>.');
+  console.log('Trimmed map should be of width <' + (map_bnd_rgt - map_bnd_lft + 1) + '> and height <' +
+                  (map_bnd_btm - map_bnd_top + 1) + '>.');
+
+  if (true) {
     let trimmed_map = [];
-    for (let col = 0; col <= bnd_rgt - bnd_lft + 1; col++) {
+
+    for (let row = 0; row < map_bnd_btm - map_bnd_top + 1 ; row++) {
       trimmed_map.push([]);
-      for (let row = 0; row <= bnd_btm - bnd_top + 1; row++)
-        trimmed_map[col].push('#');
+      for (let col = 0; col < map_bnd_rgt - map_bnd_lft + 1; col++) {
+        //let map_tile = map[map_bnd_top + row][map_bnd_lft + col];
+        //trimmed_map[row].push(map_tile);
+        if (map[map_bnd_top + row][map_bnd_lft + col] === '#')
+          map[map_bnd_top + row][map_bnd_lft + col] = '$';
+        else if (map[map_bnd_top + row][map_bnd_lft + col] === '.')
+          map[map_bnd_top + row][map_bnd_lft + col] = '*';
+        else if(map[map_bnd_top + row][map_bnd_lft + col] === '~')
+          map[map_bnd_top + row][map_bnd_lft + col] = '*';
+      }
     }
-    return trimmed_map;
+    return map;
   }
   
   return map;
