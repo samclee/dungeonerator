@@ -1,4 +1,4 @@
-var c, ctx, num_rms, rm_sz, options, chr_clr_map, max_grid_sz, max_map_sz, b_sz, map;
+var c, ctx, num_rms, rm_sz, options, chr_clr_map, b_sz, map;
 
 function init() {
   // prepate canvas
@@ -15,13 +15,10 @@ function init() {
 } // init()
 
 function new_map() {
-  // adjust sizes to fit map on screen
-  max_grid_sz = Math.ceil(Math.sqrt(num_rms) * 2);
-  max_map_sz = rm_sz * max_grid_sz + options.gap * (max_grid_sz - 1);
-  b_sz = c.width / max_map_sz;
-
   // display map
   map = dg.gen(num_rms, rm_sz, options);
+  b_sz = c.width / map.length;
+  console.log('Recieved map of size', map.length);
 
   for (let row = 0; row < map.length; row++) {
     for (let col = 0; col < map.length; col++) {

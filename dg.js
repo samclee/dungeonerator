@@ -180,6 +180,10 @@ dg.gen = (num_rms, rm_sz, opt) => {
   let max_map_sz = rm_sz * max_grid_sz + opt.gap * (max_grid_sz - 1);
   let map = dg._populate2d(max_map_sz, '~');
 
+  // prepare variables to track map bounds
+  let bnd_lft = max_grid_sz / 2, bnd_rgt = max_grid_sz / 2, 
+      bnd_top = max_grid_sz / 2, bnd_btm = max_grid_sz / 2;
+
   // place center room
   let ctr_l = {x: Math.floor(max_grid_sz / 2), y: Math.floor(max_grid_sz / 2)}; 
   dg._carve_rm(ctr_l, map, rm_sz, opt.gap);
@@ -196,6 +200,17 @@ dg.gen = (num_rms, rm_sz, opt) => {
     // carve new room into dungeon
     dg._carve_rm(new_l, map, rm_sz, opt.gap);
 
+    // change trimmed map bounds
+    if (new_l.x < bnd_lft)
+      bnd_lft = new_l.x;
+    else if (bnd_rgt < new_l.x)
+      bnd_rgt = new_l.x;
+
+    if (new_l.y < bnd_top)
+      bnd_top = new_l.y;
+    else if (bnd_btm < new_l.y)
+      bnd_btm = new_l.y
+
     // carve tunnel between last room and current room
     dg._carve_tnl(new_l, last_l, map, rm_sz, opt.gap, opt.merge_prob);
 
@@ -203,6 +218,19 @@ dg.gen = (num_rms, rm_sz, opt) => {
     rm_grid[new_l.y][new_l.x] = 1;
 
     rms_left--;
+  }
+
+  console.log('Map spans from cols <' + bnd_lft + '-' + bnd_rgt + '> and rows <' + 
+                  bnd_top + '-' + bnd_btm + '>.');
+
+  if (false) {
+    let trimmed_map = [];
+    for (let col = 0; col <= bnd_rgt - bnd_lft + 1; col++) {
+      trimmed_map.push([]);
+      for (let row = 0; row <= bnd_btm - bnd_top + 1; row++)
+        trimmed_map[col].push('#');
+    }
+    return trimmed_map;
   }
   
   return map;
