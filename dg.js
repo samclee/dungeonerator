@@ -239,16 +239,19 @@ dg.gen = (num_rms, rm_sz, opt) => {
     for (let row = 0; row < map_bnd_btm - map_bnd_top + 1 ; row++) {
       trimmed_map.push([]);
       for (let col = 0; col < map_bnd_rgt - map_bnd_lft + 1; col++) {
-        //let map_tile = map[map_bnd_top + row][map_bnd_lft + col];
-        //trimmed_map[row].push(map_tile);
-        if (map[map_bnd_top + row][map_bnd_lft + col] === '#')
+        let map_tile = map[map_bnd_top + row][map_bnd_lft + col];
+        if (map_tile === '#')
           map[map_bnd_top + row][map_bnd_lft + col] = '$';
-        else if (map[map_bnd_top + row][map_bnd_lft + col] === '.')
+        else if (map_tile === '.')
           map[map_bnd_top + row][map_bnd_lft + col] = '*';
-        else if(map[map_bnd_top + row][map_bnd_lft + col] === '~')
+        else if(map_tile === '~')
           map[map_bnd_top + row][map_bnd_lft + col] = '*';
+        trimmed_map[row].push(map_tile);
       }
     }
+
+    console.log('Actual trimmed map is of width <' + trimmed_map[0].length + '> and height <' +
+                  trimmed_map.length + '>.');
     return map;
   }
   

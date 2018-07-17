@@ -20,6 +20,8 @@ function new_map() {
   b_sz = (map.length > map[0].length) ? c.width / map.length : c.width / map[0].length;
   console.log('Recieved map of size', map.length);
 
+  ctx.fillStyle = 'yellow';
+  ctx.fillRect(0, 0, c.width, c.height);
   for (let row = 0; row < map.length; row++) {
     for (let col = 0; col < map.length; col++) {
       ctx.fillStyle = chr_clr_map[map[row][col]];
