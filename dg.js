@@ -166,7 +166,7 @@ dg.gen = (num_rms, rm_sz, opt) => {
   opt = opt || {gap: 0, merge_prob: 0.25, trim: false};
   opt.gap = (opt.gap === undefined) ? 0 : opt.gap; // inline condit to compensate for 0 falseness
   opt.merge_prob = (opt.merge_prob === undefined) ? 0.25 : opt.merge_prob;
-  opt.trim = opt.trim || false;
+  opt.trim = (opt.trim === undefined) ? true : opt.trim;
 
   console.log('Generating <' + num_rms + '> rooms of size <' + rm_sz +
                 '> tiles with <' + opt.gap + '> tiles in between.');
@@ -233,7 +233,7 @@ dg.gen = (num_rms, rm_sz, opt) => {
   console.log('Trimmed map should be of width <' + (map_bnd_rgt - map_bnd_lft + 1) + '> and height <' +
                   (map_bnd_btm - map_bnd_top + 1) + '>.');
 
-  if (true) {
+  if (opt.trim) {
     let trimmed_map = [];
 
     for (let row = 0; row < map_bnd_btm - map_bnd_top + 1 ; row++) {
@@ -246,12 +246,16 @@ dg.gen = (num_rms, rm_sz, opt) => {
           map[map_bnd_top + row][map_bnd_lft + col] = '*';
         else if(map_tile === '~')
           map[map_bnd_top + row][map_bnd_lft + col] = '*';
+        
         trimmed_map[row].push(map_tile);
       }
     }
 
     console.log('Actual trimmed map is of width <' + trimmed_map[0].length + '> and height <' +
                   trimmed_map.length + '>.');
+
+
+
     return map;
   }
   
