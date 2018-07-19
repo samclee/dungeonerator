@@ -240,6 +240,7 @@ dg.gen = (num_rms, rm_sz, opt) => {
       trimmed_map.push([]);
       for (let col = 0; col < map_bnd_rgt - map_bnd_lft + 1; col++) {
         let map_tile = map[map_bnd_top + row][map_bnd_lft + col];
+        
         if (map_tile === '#')
           map[map_bnd_top + row][map_bnd_lft + col] = '$';
         else if (map_tile === '.')
@@ -254,9 +255,7 @@ dg.gen = (num_rms, rm_sz, opt) => {
     console.log('Actual trimmed map is of width <' + trimmed_map[0].length + '> and height <' +
                   trimmed_map.length + '>.');
 
-
-
-    return map;
+    return trimmed_map;
   }
   
   return map;
