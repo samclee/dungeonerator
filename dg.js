@@ -216,7 +216,6 @@ dg.gen = (num_rms, rm_sz, opt) => {
 
     // record room on room grid
     rm_grid[new_l.y][new_l.x] = 1;
-
     rms_left--;
   }
 
@@ -225,13 +224,6 @@ dg.gen = (num_rms, rm_sz, opt) => {
   let map_bnd_rgt = (bnd_rgt + 1) * (rm_sz + opt.gap) - 1; // the +/-1 puts the bound on the other side of the col
   let map_bnd_btm = (bnd_btm + 1) * (rm_sz + opt.gap) - 1; // the +/-1 puts the bound on the other side of the row
   let map_bnd_top = bnd_top * (rm_sz + opt.gap);
-
-  console.log('Grid spans from cols <' + bnd_lft + '-' + bnd_rgt + '> and rows <' + 
-                  bnd_top + '-' + bnd_btm + '>.');
-  console.log('Map spans from cols <' + map_bnd_lft + '-' + map_bnd_rgt + '> and rows <' +
-                  map_bnd_top + '-' + map_bnd_btm + '>.');
-  console.log('Trimmed map should be of width <' + (map_bnd_rgt - map_bnd_lft + 1) + '> and height <' +
-                  (map_bnd_btm - map_bnd_top + 1) + '>.');
 
   if (opt.trim) {
     let trimmed_map = [];
@@ -251,9 +243,6 @@ dg.gen = (num_rms, rm_sz, opt) => {
         trimmed_map[row].push(map_tile);
       }
     }
-
-    console.log('Actual trimmed map is of width <' + trimmed_map[0].length + '> and height <' +
-                  trimmed_map.length + '>.');
 
     return trimmed_map;
   }
