@@ -8,40 +8,47 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
   <!-- Shrikhand -->
-  <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="main.css">
 
   <script src='dg.js'></script>
   <script src='download2.js'></script>
   <script src = 'main.js'></script>
   <title>Đungeonerator</title>
 </head>
-<body onload='init()' style="font-family: Shrikhand; background-color: teal;">
+<body onload='init()'>
+  <br>
   <h1 class='text-center'>Đungeonerator</h1>
+  <br>
 
   <div class='row'>
     <div class='col-md-2'></div>
+    
     <div class='col-md-4'>
       <canvas id='display' width='400' height='400'>Your browser does not support the canvas element</canvas>
     </div>
     
     <div class='col-md-4'>
       <h5 class='text-center'>Set number of rooms</h5>
-      <input type="number" onchange="set_num_rms(this)" value="20" min="1" max="500" autocomplete="off" class='text-center'>
-      <h5 class='text-center'>Set room size</h5>
-      <input type="number" onchange="set_rm_sz(this)" value="8" min="3" max="10" autocomplete="off" class='text-center'>
-      <h5 class='text-center'>Set space betweem rooms</h5>
-      <input type="number" onchange="set_gap(this)" value="0" min="0" max="5" autocomplete="off" class='text-center'>
-      <h5 class='text-center'>Percent change of halls forming</h5 autocomplete="off" class='text-center'>
-      <input type="number" onchange="set_merge_prob(this)" value="25" min="0", max="100" step="5" autocomplete="off" class='text-center'>
+      <input type="number" onchange="set_num_rms(this)" value="20" min="1" max="500" autocomplete="off" class=''>
       
-      <button class="btn" onclick="new_map()"><i class="fa fa-sync-alt"></i> Generate</button>
-      <button class="btn" onclick='dl_map()'><i class="fa fa-arrow-circle-down "></i> Đownload</button>
+      <h5 class='text-center'>Set room size</h5>
+      <input type="number" onchange="set_rm_sz(this)" value="8" min="3" max="10" autocomplete="off" class=''>
+      
+      <h5 class='text-center'>Set space betweem rooms</h5>
+      <input type="number" onchange="set_gap(this)" value="0" min="0" max="5" autocomplete="off" class=''>
+      
+      <h5 class='text-center'>Percent change of halls forming</h5>
+      <input type="number" onchange="set_merge_prob(this)" value="25" min="0", max="100" step="5" autocomplete="off" class=''>
+      <br>
+      
+      <button class="btn btn-block" onclick="new_map()"><i class="fa fa-sync-alt"></i> Generate</button>
+      <button class="btn btn-block" onclick='dl_map()'><i class="fa fa-arrow-circle-down "></i> Đownload</button>
 
       <div class='col-md-2'></div>
     </div>
   </div>
-  
-
   
 
   <!-- jQuery, Popper.js, Bootstrap JS -->
