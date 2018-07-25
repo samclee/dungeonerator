@@ -12,4 +12,9 @@ dg.gen(num_rms, rm_sz, <options>);
 __Arguments:__ 
 * __num_rms__ (*number*) - The number of rooms in the dungeon
 * __rm_sz__ (*number*) - The square foot size of the room
-* __<options>__ (*object*) - An optional list of further dungeon specifications
+* __options__ (*object*) - An optional list of further dungeon specifications
+
+__Returns:__
+* __map__ (*2D String array*) - A 2D array representing the dungeon
+
+## "options" details
