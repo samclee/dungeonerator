@@ -9,5 +9,6 @@ Simply include the `dg.js` file in your web page with a `<script>` tag. like so:
 ```js
 dg.gen(num_rms, rm_sz, <options>);
 ```
-__Arguments:__ * num_rms (*number*) - The number of rooms in the dungeon
-               * rm_sz (*number*) - The square foot size of the room
+__Arguments:__ 
+* num_rms (*number*) - The number of rooms in the dungeon
+* rm_sz (*number*) - The square foot size of the room
