@@ -18,7 +18,7 @@ __Returns:__
 * __map__ (*2D String array*) - A 2D array representing the dungeon
 
 ### Example
-```
+```js
 let my_dungeon = dg.gen(200, 9);
 ```
 
@@ -29,7 +29,7 @@ The options object should one or more of the following members:
 * __trim__ (*boolean*) - True if you would like to cut off extra whitespace around the border of the map. Default is true.
 
 ### Example
-```
+```js
 let my_options = {};
 my_options.gap = 3;
 my_options.merge_prob = 0.67;
