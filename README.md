@@ -17,8 +17,23 @@ __Arguments:__
 __Returns:__
 * __map__ (*2D String array*) - A 2D array representing the dungeon
 
+### Example
+```
+let my_dungeon = dg.gen(200, 9);
+```
+
 ## "options" details
 The options object should one or more of the following members:
 * __gap__ (*number*) - The number of tiles put between rooms. Default is 0.
 * __merge_prob__ (*number*) - A float between 0 and 1 that dictates the probability of rooms merging together. Default is 0.30.
 * __trim__ (*boolean*) - True if you would like to cut off extra whitespace around the border of the map. Default is true.
+
+### Example
+```
+let my_options = {};
+my_options.gap = 3;
+my_options.merge_prob = 0.67;
+my_options.trime = false;
+
+let my_dungeon = dg.gen(200, 9, my_options);
+```
