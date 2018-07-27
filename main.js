@@ -8,7 +8,7 @@ function init() {
   // prepare map variables
   num_rms = 20;
   rm_sz = 8;
-  options = {gap: 0, merge_prob: 0.25, trim: true};
+  options = {gap: 0, merge_prob: 0.30, trim: true};
   chr_clr_map = {'~': 'black', '#': 'white', '.': 'black', '$': 'lime', '*': 'yellow'};
   
   new_map();
@@ -48,18 +48,12 @@ function dl_map() {
 
 let clamp = (min, val, max) => Math.min(Math.max(min, val), max);
 
-function set_num_rms(inp) {
-  num_rms = parseInt(clamp(1, inp.value, 500));
-}
+let set_num_rms = (inp) => { num_rms = parseInt(clamp(1, inp.value, 500)) }
 
-function set_rm_sz(inp) {
-  rm_sz = parseInt(clamp(3,inp.value,10));
-}
+let set_rm_sz = (inp) => { rm_sz = parseInt(clamp(3,inp.value,10)) }
 
-function set_gap(inp) {
-  options.gap = parseInt(clamp(0, inp.value, 5));
-}
+let set_gap = (inp) => { options.gap = parseInt(clamp(0, inp.value, 5)) }
 
-function set_merge_prob(inp) {
-  options.merge_prob = parseInt(clamp(0, inp.value, 100)) / 100;
-}
+let set_merge_prob = (inp) => { options.merge_prob = parseInt(clamp(0, inp.value, 100)) / 100 }
+
+let set_trim = (inp) => { options.trim = (inp.value === 'true') ? true : false }
