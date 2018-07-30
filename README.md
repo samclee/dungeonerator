@@ -33,7 +33,7 @@ The options object should one or more of the following members:
 let my_options = {};
 my_options.gap = 3;
 my_options.merge_prob = 0.67;
-my_options.trime = false;
+my_options.trim = false;
 
 let my_dungeon = dg.gen(200, 9, my_options);
 ```
