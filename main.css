@@ -1,5 +1,14 @@
 body {
   color: white;
   background-color: black;
-  font-family: Shrikhand; 
+  font-family: 'Shrikhand', cursive;; 
+}
+
+.space-under {
+  margin-bottom: 2%;
+}
+
+.big-btn {
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
