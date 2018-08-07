@@ -1,5 +1,6 @@
 # Dungeonerator
 ![](https://raw.githubusercontent.com/samclee/dungeonerator/master/dg.gif)
+
 Dungeonerator is an easy way to create a myriad of elegant, randomized dungeons. You can see it in action [here](http://samchristopherlee.com/dungeonerator/).
 ## Setting up
 Simply include the `dg.js` file in your web page with a `<script>` tag. like so:
